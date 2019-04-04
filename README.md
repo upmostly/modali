@@ -1,5 +1,5 @@
-# Modali
-🦞 A delightfully simple modal dialog for React, built from the ground up to support React Hooks.
+# 🦞 modali
+A delightfully simple modal dialog for React, built from the ground up to support React Hooks.
 
 ## Installation
 Install Modali in your project using npm:
@@ -12,7 +12,7 @@ Or yarn:
 yarn add react-modali
 ```
 
-**Modali uses React Hooks, therefore you are required to use React v16.8 or above when using Modali.**
+**⚠️ Modali uses React Hooks, therefore you are required to use React v16.8 or above when using Modali.**
 
 ## Usage
 
@@ -111,5 +111,67 @@ const App = () => {
 };
 
 export default App;
+
+```
+
+## Modali Options
+
+Modali provides an easy to use interface for accessing useful events, such as when the modal shows and hides.
+
+### Events
+
+| Event | Description |
+| --- | --- |
+| `onShow` | Called when the component finishes mounting to the DOM |
+| `onHide` | Called when the component is removed from the DOM |
+| `onEscapeKeyDown` | Called when the escape key is pressed while the component is mounted to the DOM |
+| `onOverlayClick` | Called when the modal overlay back is clicked while the component is mounted to the DOM |
+
+Example
+
+```javascript
+const [exampleModal, toggleExampleModal] = useModali({
+  onShow: () => console.log('Modali is shown'),
+  onHide: () => console.log('Modali is hidden')
+});
+
+```
+
+Modali can be easily customized by passing in an object of key/value pairs to the useModali Hook:
+
+### Props
+
+| Option | Default Value | Description |
+| --- | --- | --- |
+| `closeButton` | true | Controls the visibility of the close button |
+| `animated` | false | Fades in the modal when it mounts to the DOM |
+| `large` | false | Changes the size of the modal to be 800px wide |
+| `overlayClose` | true | Disables clicking the modal overlay to hide it |
+| `keyboardClose` | true | Disables the ESC key hiding the modal |
+
+Example
+
+```javascript
+const [exampleModal, toggleExampleModal] = useModali({
+  animated: true,
+  large: true,
+  closeButton: false
+});
+
+```
+
+Of course, props and events can be combined when passing the options to the useModali Hook:
+
+```javascript
+
+function handleModalOnHide() {
+  // do something when the modal hides
+}
+
+const [exampleModal, toggleExampleModal] = useModali({
+  onHide: handleModalOnHide,
+  large: true,
+  closeButton: false
+});
 
 ```

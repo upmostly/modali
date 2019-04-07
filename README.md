@@ -1,6 +1,11 @@
 # 🦞 modali
 A delightfully simple modal dialog for React, built from the ground up to support React Hooks.
 
+<p align="center">
+  <img src="../assets/modali-logo.png" alt="drawing" width="400"/>
+</p>
+
+
 ## Installation
 Install Modali in your project using npm:
 

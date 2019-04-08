@@ -10,11 +10,7 @@ A delightfully simple modal dialog for React, built from the ground up to suppor
 Install Modali in your project using npm:
 
 ```
-npm install --save react-modali
-```
-Or yarn:
-```
-yarn add react-modali
+npm install --save modali
 ```
 
 **⚠️ Modali uses React Hooks, therefore you are required to use React v16.8 or above when using Modali.**
@@ -23,7 +19,7 @@ yarn add react-modali
 
 Import the `Modali` component and `useModali` Hook in your React components, like so:
 ```javascript
-import Modali, { useModali } from 'react-modali';
+import Modali, { useModali } from 'modali';
 ```
 
 After you've imported the Modali component and useModali Hook, you're ready to start using Modali inside your components! 🎉
@@ -32,7 +28,7 @@ After you've imported the Modali component and useModali Hook, you're ready to s
 
 ```jsx
 import React from 'react';
-import Modali, { useModali } from 'react-modali';
+import Modali, { useModali } from 'modali';
 
 const App = () => {
   const [exampleModal, toggleExampleModal] = useModali();
@@ -91,7 +87,7 @@ This flexibility of being able to name the props object and toggle function allo
 
 ```jsx
 import React from 'react';
-import Modali, { useModali } from 'react-modali';
+import Modali, { useModali } from 'modali';
 
 const App = () => {
   const [firstModal, toggleFirstModal] = useModali();

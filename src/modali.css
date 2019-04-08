@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 1040;
   width: 100vw;
   height: 100vh;
   background-color: #000;
@@ -27,6 +27,11 @@
   position: relative;
   margin: 1.75rem auto;
   border-radius: 3px;
+  pointer-events: none;
+}
+
+.modali-content {
+  pointer-events: auto;
 }
 
 .modali-header {
@@ -54,6 +59,11 @@
   cursor: pointer;
   border: none;
   outline: 0;
+}
+
+.modali-close-button:hover {
+  opacity: .8;
+  text-decoration: none;
 }
 
 .modali-body {

@@ -3,9 +3,7 @@ import { render } from 'react-dom';
 import Modali, { useModali } from '../../src';
 
 const App = () => {
-  const [exampleModal, toggleExampleModal] = useModali({
-    animated: true,
-  });
+  const [exampleModal, toggleExampleModal] = useModali();
   return (
     <div className="App">
       <button onClick={toggleExampleModal}>

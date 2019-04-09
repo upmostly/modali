@@ -15,7 +15,7 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-require('./modal.css');
+require('./modali.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,42 +26,53 @@ var Modali = function Modali(_ref) {
       children = _ref.children;
 
 
-  function handleOverlayClicked() {
-    if (options.onOverlayClicked) {
-      options.onOverlayClicked();
+  function handleOverlayClicked(e) {
+    if (e.target.className !== 'modali-wrapper') {
+      return;
     }
-    if (options.overlayClose !== false) {
+    if (options === undefined) {
       hide();
+    } else {
+      if (options.overlayClose !== false) {
+        hide();
+      }
+      if (options.onOverlayClicked) {
+        options.onOverlayClicked();
+      }
     }
   }
 
   return isShown ? _reactDom2.default.createPortal(_react2.default.createElement(
     _react2.default.Fragment,
     null,
-    _react2.default.createElement('div', { className: 'modali-overlay', onClick: handleOverlayClicked }),
+    _react2.default.createElement('div', { className: 'modali-overlay' }),
     _react2.default.createElement(
       'div',
-      { className: 'modali-wrapper' },
+      { className: 'modali-wrapper', 'aria-modal': true, 'aria-hidden': true, tabIndex: -1, role: 'dialog', onClick: handleOverlayClicked },
       _react2.default.createElement(
         'div',
-        { className: 'modali ' + (options && options.large ? 'modali-size-large' : 'modali-size-regular') + ' ' + (options && options.animated ? 'modali-animated modali-animation-fade-in' : ''), 'aria-modal': true, 'aria-hidden': true, tabIndex: -1, role: 'dialog' },
-        options && options.closeButton !== false && _react2.default.createElement(
-          'div',
-          { className: 'modali-header' },
-          _react2.default.createElement(
-            'button',
-            { type: 'button', className: 'modali-close-button', 'data-dismiss': 'modal', 'aria-label': 'Close', onClick: hide },
-            _react2.default.createElement(
-              'span',
-              { 'aria-hidden': 'true' },
-              '\xD7'
-            )
-          )
-        ),
+        { className: 'modali ' + (options && options.large ? 'modali-size-large' : 'modali-size-regular') + ' ' + (options && options.animated ? 'modali-animated modali-animation-fade-in' : '') },
         _react2.default.createElement(
           'div',
-          { className: 'modali-body' },
-          children
+          { className: 'modali-content' },
+          options !== undefined && options.closeButton === false ? null : _react2.default.createElement(
+            'div',
+            { className: 'modali-header' },
+            _react2.default.createElement(
+              'button',
+              { type: 'button', className: 'modali-close-button', 'data-dismiss': 'modal', 'aria-label': 'Close', onClick: hide },
+              _react2.default.createElement(
+                'span',
+                { 'aria-hidden': 'true' },
+                '\xD7'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'modali-body' },
+            children
+          )
         )
       )
     )
@@ -81,7 +92,16 @@ var useModali = exports.useModali = function useModali(options) {
       setIsShown = _useState4[1];
 
   function handleKeyDown(event) {
-    if (options && options.keyboardClose !== false && event.keyCode === 27) toggle();
+    if (options === undefined && event.keyCode === 27) {
+      toggle();
+    }
+    if (options !== undefined && options.keyboardClose === true && event.keyCode === 27) {
+      toggle();
+    }
+    if (options !== undefined && options.onEscapeKeyDown) {
+      options.onEscapeKeyDown();
+      toggle();
+    }
   }
 
   (0, _react.useEffect)(function () {

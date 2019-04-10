@@ -5,6 +5,9 @@ A delightfully simple modal dialog for React, built from the ground up to suppor
   <img src="../assets/modali-logo.png" alt="drawing" width="400"/>
 </p>
 
+## Live Demo
+
+https://upmostly.github.io/modali/
 
 ## Installation
 Install Modali in your project using npm:

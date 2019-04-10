@@ -84,11 +84,11 @@
 /* Size Classes */
 
 .modali-size-regular {
-  width: 500px;
+  max-width: 500px;
 }
 
 .modali-size-large {
-  width: 800px;
+  max-width: 800px;
 }
 
 

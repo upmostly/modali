@@ -1,6 +1,6 @@
 {
   "name": "modali",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A delightful modal dialog component for React, built from the ground up to support React Hooks.",
   "main": "dist/index.js",
   "license": "ISC",

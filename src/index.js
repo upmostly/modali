@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './modali.css';
 
+const Button = ({ onClick, label, isStyleDefault, isStyleCancel, isStyleDestructive }) => (
+  <button
+    className={`modali-button ${isStyleCancel && 'modali-button-cancel'} ${isStyleDefault && 'modali-button-default'} ${isStyleDestructive && 'modali-button-destructive'}`}
+    onClick={onClick}
+  >
+    {label}
+  </button>
+);
+
 const Modali = ({ isShown, hide, options, children }) => {
 
   function handleOverlayClicked(e) {
@@ -20,6 +29,33 @@ const Modali = ({ isShown, hide, options, children }) => {
     }
   }
 
+  function renderBody() {
+    if (children) {
+      return children;
+    } else if (options !== undefined && options.message !== undefined) {
+      return (
+        <div className="modali-body-style">
+          {options.message}
+        </div>
+      );
+    }
+  }
+
+  function renderFooter() {
+    const { buttons } = options;
+    return (
+      <div className="modali-footer">
+        {buttons.map((button, index) => (
+          <React.Fragment
+            key={`modali-button-${index}`}
+          >
+            {button}
+          </React.Fragment>
+        ))}
+      </div>
+    );
+  }
+
   return isShown ? ReactDOM.createPortal(
     <React.Fragment>
       <div className="modali-overlay"/>
@@ -28,14 +64,20 @@ const Modali = ({ isShown, hide, options, children }) => {
           <div className="modali-content">
             {options !== undefined && options.closeButton === false ? null : (
               <div className="modali-header">
+                {options !== undefined && options.title !== undefined && (
+                  <div className="modali-title">
+                    {options.title}
+                  </div>
+                )}
                 <button type="button" className="modali-close-button" data-dismiss="modal" aria-label="Close" onClick={hide}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
             )}
             <div className="modali-body">
-              {children}
+              {renderBody()}
             </div>
+            {options !== undefined && options.buttons !== undefined && options.buttons.length > 0 && renderFooter()}
           </div>
         </div>
       </div>
@@ -43,6 +85,7 @@ const Modali = ({ isShown, hide, options, children }) => {
   ) : null;
 };
 
+Modali.Button = Button;
 export default Modali;
 
 export const useModali = (options) => {

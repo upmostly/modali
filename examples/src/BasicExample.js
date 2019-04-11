@@ -7,7 +7,23 @@ import Modali, { useModali } from '../../src';
 import Button from "./Button";
 
 const BasicExample = () => {
-  const [exampleModal, toggleExampleModal] = useModali();
+  const [exampleModal, toggleExampleModal] = useModali({
+    animated: true,
+    title: 'Are you sure?',
+    message: 'Deleting this user will be permanent.',
+    buttons: [
+      <Modali.Button
+        label="Cancel"
+        isStyleCancel
+        onClick={() => toggleExampleModal()}
+      />,
+      <Modali.Button
+        label="Delete"
+        isStyleDestructive
+        onClick={() => toggleExampleModal()}
+      />,
+    ],
+  });
   return (
     <div className="row mt-5">
       <div className="col-12">
@@ -23,15 +39,7 @@ const BasicExample = () => {
       <div className="col-12">
         <SyntaxHighlighter language='jsx' style={okaidia}>{basicExample}</SyntaxHighlighter>
       </div>
-      <Modali {...exampleModal}>
-        <div className="row my-3">
-          <div className="col-12 d-flex justify-content-center">
-            <h3>
-              I'm a basic Modal Dialog 👍
-            </h3>
-          </div>
-        </div>
-      </Modali>
+      <Modali {...exampleModal} />
     </div>
   )
 };

@@ -23,15 +23,15 @@ const BasicExample = () => {
       <div className="col-12">
         <SyntaxHighlighter language='jsx' style={okaidia}>{basicExample}</SyntaxHighlighter>
       </div>
-      <Modali {...exampleModal}>
+      <Modali.Modal {...exampleModal}>
         <div className="row my-3">
           <div className="col-12 d-flex justify-content-center">
-            <h3>
-              I'm a basic Modal Dialog 👍
-            </h3>
+            <p>
+              Hi, I'm a Modali! 👋
+            </p>
           </div>
         </div>
-      </Modali>
+      </Modali.Modal>
     </div>
   )
 };

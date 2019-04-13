@@ -161,6 +161,14 @@ return (
 ...
 
 ```
+### <Modali.Button/> Props
+| Prop | Description |
+| --- | --- |
+| `label` | String that is shown on the button |
+| `isStyleDefault` | Pass in this prop as true to show the default button |
+| `isStyleCancel` | Pass in this prop as true to show a cancel button |
+| `isStyleDestructive` | Pass in this prop as true to show a delete button |
+| `onClick` | Called when the button is clicked |
 
 ## More Examples
 

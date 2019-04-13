@@ -11,7 +11,9 @@ const Button = ({ onClick, label, isStyleDefault, isStyleCancel, isStyleDestruct
   </button>
 );
 
-const Modali = ({ isShown, hide, options, children }) => {
+const Modali = () => {};
+
+const Modal = ({ isShown, hide, options, children }) => {
 
   function handleOverlayClicked(e) {
     if (e.target.className !== 'modali-wrapper') {
@@ -86,6 +88,7 @@ const Modali = ({ isShown, hide, options, children }) => {
 };
 
 Modali.Button = Button;
+Modali.Modal = Modal;
 export default Modali;
 
 export const useModali = (options) => {

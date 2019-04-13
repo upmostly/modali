@@ -29,7 +29,7 @@ const MultipleModalsExample = () => {
       <div className="col-12">
         <SyntaxHighlighter language='jsx' style={okaidia}>{multiple}</SyntaxHighlighter>
       </div>
-      <Modali {...firstModal}>
+      <Modali.Modal {...firstModal}>
         <div className="row my-3">
           <div className="col-12 d-flex justify-content-center">
             <h3>
@@ -37,8 +37,8 @@ const MultipleModalsExample = () => {
             </h3>
           </div>
         </div>
-      </Modali>
-      <Modali {...secondModal}>
+      </Modali.Modal>
+      <Modali.Modal {...secondModal}>
         <div className="row my-3">
           <div className="col-12 d-flex justify-content-center">
             <h3>
@@ -46,7 +46,7 @@ const MultipleModalsExample = () => {
             </h3>
           </div>
         </div>
-      </Modali>
+      </Modali.Modal>
     </div>
   )
 };

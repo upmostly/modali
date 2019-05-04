@@ -5,6 +5,8 @@ A delightful modal dialog library for React, built from the ground up to support
   <img src="../assets/modali-logo.png" alt="drawing" width="400"/>
 </p>
 
+A full tutorial on [Modal Components in React Using Custom Hooks](https://upmostly.com/tutorials/modal-components-react-custom-hooks/) can be found over at https://upmostly.com
+
 ## Live Demo
 
 https://upmostly.github.io/modali/

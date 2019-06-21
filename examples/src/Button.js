@@ -11,7 +11,7 @@ const ButtonStyle = {
 };
 
 const Button = ({ handleClick, children }) => (
-  <button style={ButtonStyle} onClick={handleClick}>
+  <button type="button" style={ButtonStyle} onClick={handleClick}>
     {children}
   </button>
 );

@@ -15,16 +15,65 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _shortid = require('shortid');
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
 require('./modali.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Modali = function Modali(_ref) {
-  var isShown = _ref.isShown,
-      hide = _ref.hide,
-      options = _ref.options,
-      children = _ref.children;
+var Button = function Button(_ref) {
+  var onClick = _ref.onClick,
+      label = _ref.label,
+      isStyleDefault = _ref.isStyleDefault,
+      isStyleCancel = _ref.isStyleCancel,
+      isStyleDestructive = _ref.isStyleDestructive;
 
+  var buttonClass = (0, _classnames2.default)({
+    'modali-button': true,
+    'modali-button-cancel': isStyleCancel,
+    'modali-button-default': isStyleDefault,
+    'modali-button-destructive': isStyleDestructive
+  });
+  return _react2.default.createElement(
+    'button',
+    {
+      type: 'button',
+      className: buttonClass,
+      onClick: onClick
+    },
+    label
+  );
+};
+
+Button.defaultProps = {
+  isStyleDefault: false,
+  isStyleCancel: false,
+  isStyleDestructive: false
+};
+
+Button.propTypes = {
+  onClick: _propTypes2.default.func.isRequired,
+  label: _propTypes2.default.string.isRequired,
+  isStyleDefault: _propTypes2.default.bool,
+  isStyleCancel: _propTypes2.default.bool,
+  isStyleDestructive: _propTypes2.default.bool
+};
+
+var Modal = function Modal(_ref2) {
+  var isModalVisible = _ref2.isModalVisible,
+      hide = _ref2.hide,
+      options = _ref2.options,
+      children = _ref2.children;
 
   function handleOverlayClicked(e) {
     if (e.target.className !== 'modali-wrapper') {
@@ -42,7 +91,45 @@ var Modali = function Modali(_ref) {
     }
   }
 
-  return isShown ? _reactDom2.default.createPortal(_react2.default.createElement(
+  function renderBody() {
+    if (children) {
+      return children;
+    }if (options && options.message) {
+      return _react2.default.createElement(
+        'div',
+        { className: 'modali-body-style' },
+        options.message
+      );
+    }
+    return false;
+  }
+
+  function renderFooter() {
+    var buttons = options.buttons;
+
+    return _react2.default.createElement(
+      'div',
+      { className: 'modali-footer' },
+      buttons.map(function (button) {
+        return _react2.default.createElement(
+          _react2.default.Fragment,
+          {
+            key: _shortid2.default.generate()
+          },
+          button
+        );
+      })
+    );
+  }
+
+  var modaliClass = (0, _classnames2.default)({
+    modali: true,
+    'modali-size-large': options && options.large,
+    'modali-size-regular': !options || options && !options.large,
+    'modali-animated modali-animation-fade-in': options && options.animated
+  });
+
+  return isModalVisible ? _reactDom2.default.createPortal(_react2.default.createElement(
     _react2.default.Fragment,
     null,
     _react2.default.createElement('div', { className: 'modali-overlay' }),
@@ -51,13 +138,18 @@ var Modali = function Modali(_ref) {
       { className: 'modali-wrapper', 'aria-modal': true, 'aria-hidden': true, tabIndex: -1, role: 'dialog', onClick: handleOverlayClicked },
       _react2.default.createElement(
         'div',
-        { className: 'modali ' + (options && options.large ? 'modali-size-large' : 'modali-size-regular') + ' ' + (options && options.animated ? 'modali-animated modali-animation-fade-in' : '') },
+        { className: modaliClass },
         _react2.default.createElement(
           'div',
           { className: 'modali-content' },
           options !== undefined && options.closeButton === false ? null : _react2.default.createElement(
             'div',
             { className: 'modali-header' },
+            options !== undefined && options.title !== undefined && _react2.default.createElement(
+              'div',
+              { className: 'modali-title' },
+              options.title
+            ),
             _react2.default.createElement(
               'button',
               { type: 'button', className: 'modali-close-button', 'data-dismiss': 'modal', 'aria-label': 'Close', onClick: hide },
@@ -71,14 +163,18 @@ var Modali = function Modali(_ref) {
           _react2.default.createElement(
             'div',
             { className: 'modali-body' },
-            children
-          )
+            renderBody()
+          ),
+          options && options.buttons && options.buttons.length > 0 && renderFooter()
         )
       )
     )
   ), document.body) : null;
 };
 
+var Modali = function Modali() {};
+Modali.Button = Button;
+Modali.Modal = Modal;
 exports.default = Modali;
 var useModali = exports.useModali = function useModali(options) {
   var _useState = (0, _react.useState)(false),
@@ -88,30 +184,47 @@ var useModali = exports.useModali = function useModali(options) {
 
   var _useState3 = (0, _react.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      isShown = _useState4[0],
-      setIsShown = _useState4[1];
+      isModalVisible = _useState4[0],
+      setIsModalVisible = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      isShown = _useState6[0],
+      setIsShown = _useState6[1];
+
+  var isModalVisibleRef = (0, _react.useRef)(isModalVisible);
+  isModalVisibleRef.current = isModalVisible;
+  var timeoutHack = void 0;
+
+  function toggle() {
+    timeoutHack = setTimeout(function () {
+      setIsModalVisible(!isModalVisibleRef.current);
+      clearTimeout(timeoutHack);
+    }, 10);
+    setIsShown(!isShown);
+    setHasToggledBefore(true);
+  }
 
   function handleKeyDown(event) {
-    if (options === undefined && event.keyCode === 27) {
-      toggle();
-    }
-    if (options !== undefined && options.keyboardClose === true && event.keyCode === 27) {
-      toggle();
-    }
-    if (options !== undefined && options.onEscapeKeyDown) {
+    if (event.keyCode !== 27 || options && options.keyboardClose === false) return;
+    toggle();
+    if (options && options.onEscapeKeyDown) {
       options.onEscapeKeyDown();
-      toggle();
     }
   }
 
   (0, _react.useEffect)(function () {
     if (isShown) {
-      options && options.onShow && options.onShow();
+      if (options && options.onShow) {
+        options.onShow();
+      }
       document.addEventListener('keydown', handleKeyDown);
       document.body.classList.add('modali-open');
     }
     if (!isShown && hasToggledBefore) {
-      options && options.onHide && options.onHide();
+      if (options && options.onHide) {
+        options.onHide();
+      }
       document.body.classList.remove('modali-open');
     }
     return function () {
@@ -119,13 +232,9 @@ var useModali = exports.useModali = function useModali(options) {
     };
   }, [isShown]);
 
-  function toggle() {
-    setIsShown(!isShown);
-    setHasToggledBefore(true);
-  }
-
   return [{
     isShown: isShown,
+    isModalVisible: isModalVisible,
     hide: toggle,
     options: options
   }, toggle];

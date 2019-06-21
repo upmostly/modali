@@ -4,10 +4,10 @@ import { render } from 'react-dom';
 import Installation from './Installation';
 import BasicExample from './BasicExample';
 import Modali, { useModali } from '../../src';
-import Button from "./Button";
-import MultipleModalsExample from "./MultipleModalsExample";
-import OptionsModalsExample from "./OptionsModalsExample";
-import CompleteExample from "./CompleteExample";
+import Button from './Button';
+import MultipleModalsExample from './MultipleModalsExample';
+import OptionsModalsExample from './OptionsModalsExample';
+import CompleteExample from './CompleteExample';
 
 const App = () => {
   const [exampleModal, toggleExampleModal] = useModali({
@@ -31,7 +31,7 @@ const App = () => {
     <div className="container my-5">
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-center">
-          <img src="https://upmostly.com/wp-content/uploads/modali-logo.png" alt="modali logo" style={{ height: '250px'}} />
+          <img src="https://upmostly.com/wp-content/uploads/modali-logo.png" alt="modali logo" style={{ height: '250px' }} />
         </div>
         <div className="col-12 d-flex justify-content-center mt-5">
           <Button handleClick={toggleExampleModal}>
@@ -49,4 +49,4 @@ const App = () => {
   );
 };
 
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById('root'));

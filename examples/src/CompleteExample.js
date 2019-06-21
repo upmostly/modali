@@ -1,10 +1,10 @@
 import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { completeExampleSnippet } from "./snippets/snippets";
+import { completeExampleSnippet } from './snippets/snippets';
 
 import Modali, { useModali } from '../../src';
-import Button from "./Button";
+import Button from './Button';
 
 const CompleteExample = () => {
   const [completeExample, toggleCompleteModal] = useModali({
@@ -37,10 +37,10 @@ const CompleteExample = () => {
         </Button>
       </div>
       <div className="col-12">
-        <SyntaxHighlighter language='jsx' style={okaidia}>{completeExampleSnippet}</SyntaxHighlighter>
+        <SyntaxHighlighter language="jsx" style={okaidia}>{completeExampleSnippet}</SyntaxHighlighter>
       </div>
       <Modali.Modal {...completeExample} />
     </div>
-  )
+  );
 };
 export default CompleteExample;

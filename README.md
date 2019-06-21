@@ -1,5 +1,5 @@
 # 🦞 modali
-A delightfully simple modal dialog for React, built from the ground up to support React Hooks.
+A delightful modal dialog library for React, built from the ground up to support React Hooks. Modali provides a simple interface to build beautiful modals in minutes.
 
 <p align="center">
   <img src="../assets/modali-logo.png" alt="drawing" width="400"/>
@@ -41,9 +41,50 @@ const App = () => {
       <button onClick={toggleExampleModal}>
         Click me to open the modal
       </button>
-      <Modali {...exampleModal}>
+      <Modali.Modal {...exampleModal}>
         Hi, I'm a Modali!
-      </Modali>
+      </Modali.Modal>
+    </div>
+  );
+};
+
+export default App;
+
+```
+
+### Title, Message, and Buttons
+
+Modali provides everything you need to build beautiful modals in minutes. Use the title, message and buttons props to customize your modal as quick as a flash! ⚡️
+
+```jsx
+import React from 'react';
+import Modali, { useModali } from 'modali';
+
+const App = () => {
+  const [completeExample, toggleCompleteModal] = useModali({
+    animated: true,
+    title: 'Are you sure?',
+    message: 'Deleting this user will be permanent.',
+    buttons: [
+      <Modali.Button
+        label="Cancel"
+        isStyleCancel
+        onClick={() => toggleCompleteModal()}
+      />,
+      <Modali.Button
+        label="Delete"
+        isStyleDestructive
+        onClick={() => deleteUserWithId('123')}
+      />,
+    ],
+  });
+
+  return (
+    <div className="app">
+      <button onClick={toggleCompleteModal}>
+        Click me to open the modal
+      </button>
+      <Modali.Modal {...completeExample} />
     </div>
   );
 };
@@ -65,23 +106,69 @@ This is demonstrated in the example above, from the following line:
 - `exampleModal` is the props object. Again, this must be passed into the Modali component.
 - `toggleExampleModal` is the function to show/hide Modali.
 
-### Modali Component
+### <Modali.Modal /> Component
 
-The Modali component provides a great looking, WAI-ARIA accessible modal dialog out of the box. Import it, add it to your component tree, pass in the props object that you get from the useModali Hook to the Modali component, and you're all set!
+The `<Modali.Modal />` component provides a beautiful, WAI-ARIA accessible modal dialog out of the box. Import it, add it to your component tree, pass in the props object that you get from the useModali Hook and you're all set.
 
 ```jsx
 ...
 
 const [exampleModal, toggleExampleModal] = useModali();
+
 return (
-  <Modali {...exampleModal}>
+  <Modali.Modal {...exampleModal}>
     Hi, I'm a Modali
-  </Modali>
+  </Modali.Modal>
 );
 
 ...
 
 ```
+
+### <Modali.Button /> Component
+
+The `<Modali.Button />` component provides a ready-to-go button component that includes three separate styles of button: default, cancel, and destructive.
+
+```jsx
+...
+
+const [completeExample, toggleCompleteModal] = useModali({
+  buttons: [
+    <Modali.Button
+      label="Done"
+      isStyleDefault
+      onClick={() => handleDoneClicked()}
+    />,
+    <Modali.Button
+      label="Cancel"
+      isStyleCancel
+      onClick={() => toggleCompleteModal()}
+    />,
+    <Modali.Button
+      label="Delete"
+      isStyleDestructive
+      onClick={() => deleteUserWithId('123')}
+    />,
+  ],
+});
+
+return (
+  <Modali.Modal {...exampleModal}>
+    Hi, I'm a Modali
+  </Modali.Modal>
+);
+
+...
+
+```
+### <Modali.Button/> Props
+| Prop | Description |
+| --- | --- |
+| `label` | String that is shown on the button |
+| `isStyleDefault` | Pass in this prop as true to show the default button |
+| `isStyleCancel` | Pass in this prop as true to show a cancel button |
+| `isStyleDestructive` | Pass in this prop as true to show a delete button |
+| `onClick` | Called when the button is clicked |
 
 ## More Examples
 
@@ -104,12 +191,12 @@ const App = () => {
       <button onClick={toggleSecondModal}>
         Click me to open the second modal!
       </button>
-      <Modali {...firstModal}>
+      <Modali.Modal {...firstModal}>
         Hi, I'm the first Modali
-      </Modali>
-      <Modali {...secondModal}>
+      </Modali.Modal>
+      <Modali.Modal {...secondModal}>
         And I'm the second Modali
-      </Modali>
+      </Modali.Modal>
     </div>
   );
 };
@@ -141,12 +228,15 @@ const [exampleModal, toggleExampleModal] = useModali({
 
 ```
 
-Modali can be easily customized by passing in an object of key/value pairs to the useModali Hook:
+Modali can be easily customized by passing in an object of key/value pairs to the useModali Hook's initializer:
 
 ### Props
 
 | Option | Default Value | Description |
 | --- | --- | --- |
+| `title` | string | The text displayed in the upper left corner |
+| `message` | string | The text displayed in the body of the modal |
+| `buttons` | array | Displays components passed in the footer of the modal |
 | `closeButton` | true | Controls the visibility of the close button |
 | `animated` | false | Fades in the modal when it mounts to the DOM |
 | `large` | false | Changes the size of the modal to be 800px wide |

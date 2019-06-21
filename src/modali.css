@@ -36,21 +36,18 @@
 
 .modali-header {
   display: flex;
-  -ms-flex-align: start;
   align-items: flex-start;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 1rem 1rem;
-  border-top-left-radius: .3rem;
-  border-top-right-radius: .3rem;
+  padding: 1.5rem 1.5rem .5rem 1.5rem;
 }
 
-.modali-header .modali-close-button {
-  padding: 1rem 1rem;
-  margin: -1rem -1rem -1rem auto;
+.modali-header .modali-title {
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
 .modali-close-button {
+  padding: 1rem;
+  margin: -1rem -1rem -1rem auto;
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;
@@ -58,7 +55,7 @@
   opacity: .3;
   cursor: pointer;
   border: none;
-  outline: 0;
+  outline: 0 !important;
 }
 
 .modali-close-button:hover {
@@ -68,17 +65,26 @@
 
 .modali-body {
   position: relative;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
   background-color: #fff;
   border-radius: .3rem;
 }
 
+.modali-body-style {
+  padding: .5rem 1.5rem;
+}
+
+.modali-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .modali-open {
   overflow: hidden;
+  padding-right: 15px;
 }
 
 /* Size Classes */
@@ -91,6 +97,31 @@
   max-width: 800px;
 }
 
+/* Button Classes */
+
+.modali-button {
+  font-size: .9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 3px;
+  padding: .3rem 1rem;
+  margin-left: .5rem;
+}
+
+.modali-button-cancel {
+  background: #fff;
+  color: #000;
+}
+
+.modali-button-destructive {
+  background: #FF1654;
+  color: #fff;
+}
+
+.modali-button-default {
+  background: #247BA0;
+  color: #fff;
+}
 
 /* Animation Classes */
 

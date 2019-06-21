@@ -8,14 +8,16 @@ import Button from "./Button";
 
 const OptionsModalsExample = () => {
   const [firstModal, toggleFirstModal] = useModali({
-    onHide: () => alert(`I'm now hidden`),
     animated: true,
+    large: true,
+    closeButton: false,
+    onHide: () => alert(`I'm now hidden`),
   });
   return (
     <div className="row mt-5">
       <div className="col-12">
         <h4>
-          Modali Options
+          Modali with More Options
         </h4>
       </div>
       <div className="col-12 mt-2">
@@ -26,15 +28,15 @@ const OptionsModalsExample = () => {
       <div className="col-12">
         <SyntaxHighlighter language='jsx' style={okaidia}>{options}</SyntaxHighlighter>
       </div>
-      <Modali {...firstModal}>
+      <Modali.Modal {...firstModal}>
         <div className="row my-3">
           <div className="col-12 d-flex justify-content-center">
-            <h3>
-              I'm the first modal 🔥
-            </h3>
+            <p className="m-0">
+              I'm a larger, animated modal, without a close button 🤘
+            </p>
           </div>
         </div>
-      </Modali>
+      </Modali.Modal>
     </div>
   )
 };

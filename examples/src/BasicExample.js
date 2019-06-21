@@ -27,7 +27,7 @@ const BasicExample = () => {
         <div className="row my-3">
           <div className="col-12 d-flex justify-content-center">
             <p>
-              Hi, I'm a Modal232i! 👋
+              Hi, I'm a Modal! 👋
             </p>
           </div>
         </div>

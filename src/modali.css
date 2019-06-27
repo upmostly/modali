@@ -10,7 +10,9 @@
 }
 
 .modali-wrapper {
+  display: inline-table;
   position: fixed;
+  padding: .5rem;
   top: 0;
   left: 0;
   z-index: 1050;
@@ -47,6 +49,7 @@
 
 .modali-close-button {
   padding: 1rem;
+  background: white;
   margin: -1rem -1rem -1rem auto;
   font-size: 1.4rem;
   font-weight: 700;
@@ -82,19 +85,52 @@
   justify-content: flex-end;
 }
 
+@media (min-width: 1025px) {
+  .modali-open {
+    padding-right: 15px;
+  }
+}
+
 .modali-open {
   overflow: hidden;
-  padding-right: 15px;
 }
 
 /* Size Classes */
 
 .modali-size-regular {
+  min-width: 100%;
   max-width: 500px;
 }
 
+@media (min-width: 500px) {
+  .modali-size-regular {
+    min-width: 500px !important;
+  }
+}
+
 .modali-size-large {
+  min-width: 100%;
   max-width: 800px;
+}
+
+@media (min-width: 500px) {
+  .modali-size-large {
+    min-width: 800px !important;
+  }
+}
+
+/* Position Classes */
+
+.modali-wrapper-centered {
+  top: 40% !important;
+}
+
+@media (min-width: 1000px) {
+  .modali-wrapper-centered {
+    top: 0 !important;
+    display: flex !important;
+    align-items: center;
+  }
 }
 
 /* Button Classes */

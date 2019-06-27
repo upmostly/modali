@@ -238,9 +238,10 @@ Modali can be easily customized by passing in an object of key/value pairs to th
 | --- | --- | --- |
 | `title` | string | The text displayed in the upper left corner |
 | `message` | string | The text displayed in the body of the modal |
-| `buttons` | array | Displays components passed in the footer of the modal |
+| `buttons` | array | Displays whatever is passed in in the footer |
 | `closeButton` | true | Controls the visibility of the close button |
 | `animated` | false | Fades in the modal when it mounts to the DOM |
+| `centered` | false | Positions the modal in the center of the screen |
 | `large` | false | Changes the size of the modal to be 800px wide |
 | `overlayClose` | true | Disables clicking the modal overlay to hide it |
 | `keyboardClose` | true | Disables the ESC key hiding the modal |
@@ -251,7 +252,7 @@ Example
 const [exampleModal, toggleExampleModal] = useModali({
   animated: true,
   large: true,
-  closeButton: false
+  closeButton: false,
 });
 
 ```
@@ -267,7 +268,7 @@ function handleModalOnHide() {
 const [exampleModal, toggleExampleModal] = useModali({
   onHide: handleModalOnHide,
   large: true,
-  closeButton: false
+  closeButton: false,
 });
 
 ```

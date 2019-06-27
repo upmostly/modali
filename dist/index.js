@@ -122,6 +122,11 @@ var Modal = function Modal(_ref2) {
     );
   }
 
+  var modaliWrapperClass = (0, _classnames2.default)({
+    'modali-wrapper': true,
+    'modali-wrapper-centered': options && options.centered
+  });
+
   var modaliClass = (0, _classnames2.default)({
     modali: true,
     'modali-size-large': options && options.large,
@@ -135,7 +140,7 @@ var Modal = function Modal(_ref2) {
     _react2.default.createElement('div', { className: 'modali-overlay' }),
     _react2.default.createElement(
       'div',
-      { className: 'modali-wrapper', 'aria-modal': true, 'aria-hidden': true, tabIndex: -1, role: 'dialog', onClick: handleOverlayClicked },
+      { className: modaliWrapperClass, 'aria-modal': true, 'aria-hidden': true, tabIndex: -1, role: 'dialog', onClick: handleOverlayClicked },
       _react2.default.createElement(
         'div',
         { className: modaliClass },

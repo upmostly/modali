@@ -86,6 +86,11 @@ const Modal = ({
     );
   }
 
+  const modaliWrapperClass = classNames({
+    'modali-wrapper': true,
+    'modali-wrapper-centered': options && options.centered,
+  });
+
   const modaliClass = classNames({
     modali: true,
     'modali-size-large': options && options.large,
@@ -96,7 +101,7 @@ const Modal = ({
   return isModalVisible ? ReactDOM.createPortal(
     <React.Fragment>
       <div className="modali-overlay" />
-      <div className="modali-wrapper" aria-modal aria-hidden tabIndex={-1} role="dialog" onClick={handleOverlayClicked}>
+      <div className={modaliWrapperClass} aria-modal aria-hidden tabIndex={-1} role="dialog" onClick={handleOverlayClicked}>
         <div className={modaliClass}>
           <div className="modali-content">
             {options !== undefined && options.closeButton === false ? null : (

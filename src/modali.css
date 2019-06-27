@@ -87,7 +87,6 @@
 
 @media (min-width: 1025px) {
   .modali-open {
-    overflow: hidden;
     padding-right: 15px;
   }
 }
@@ -99,11 +98,39 @@
 /* Size Classes */
 
 .modali-size-regular {
+  min-width: 100%;
   max-width: 500px;
 }
 
+@media (min-width: 500px) {
+  .modali-size-regular {
+    min-width: 500px !important;
+  }
+}
+
 .modali-size-large {
+  min-width: 100%;
   max-width: 800px;
+}
+
+@media (min-width: 500px) {
+  .modali-size-large {
+    min-width: 800px !important;
+  }
+}
+
+/* Position Classes */
+
+.modali-wrapper-centered {
+  top: 40% !important;
+}
+
+@media (min-width: 1000px) {
+  .modali-wrapper-centered {
+    top: 0 !important;
+    display: flex !important;
+    align-items: center;
+  }
 }
 
 /* Button Classes */

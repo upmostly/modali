@@ -43,6 +43,7 @@
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-syntax-highlighter": "^10.2.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
@@ -60,7 +61,6 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "prop-types": "^15.7.2",
-    "react-syntax-highlighter": "^10.2.1",
     "shortid": "^2.2.14"
   }
 }

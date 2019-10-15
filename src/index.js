@@ -73,13 +73,14 @@ const Modal = ({
 
   function renderFooter() {
     const { buttons } = options;
+
     return (
       <div className="modali-footer">
         {buttons.map(button => (
           <React.Fragment
-            key={shortid.generate()}
+            key={button.key}
           >
-            {button}
+            {button.content}
           </React.Fragment>
         ))}
       </div>

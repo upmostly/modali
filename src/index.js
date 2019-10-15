@@ -89,14 +89,14 @@ const Modal = ({
 
   const modaliWrapperClass = classNames({
     'modali-wrapper': true,
-    'modali-wrapper-centered': options && options.centered,
+    'modali-wrapper-centered': options.centered,
   });
 
   const modaliClass = classNames({
     modali: true,
-    'modali-size-large': options && options.large,
-    'modali-size-regular': !options || (options && !options.large),
-    'modali-animated modali-animation-fade-in': options && options.animated,
+    'modali-size-large': options.large,
+    'modali-size-regular': !options.large,
+    'modali-animated modali-animation-fade-in': options.animated,
   });
 
   return isModalVisible ? ReactDOM.createPortal(
@@ -105,9 +105,9 @@ const Modal = ({
       <div className={modaliWrapperClass} aria-modal aria-hidden tabIndex={-1} role="dialog" onClick={handleOverlayClicked}>
         <div className={modaliClass}>
           <div className="modali-content">
-            {options !== undefined && options.closeButton === false ? null : (
+            {options.closeButton === false ? null : (
               <div className="modali-header">
-                {options !== undefined && options.title !== undefined && (
+                {options.title !== undefined && (
                   <div className="modali-title">
                     {options.title}
                   </div>
@@ -120,7 +120,7 @@ const Modal = ({
             <div className="modali-body">
               {renderBody()}
             </div>
-            {options && options.buttons && options.buttons.length > 0 && renderFooter()}
+            {options.buttons && options.buttons.length > 0 && renderFooter()}
           </div>
         </div>
       </div>
@@ -156,7 +156,7 @@ Modali.Button = Button;
 Modali.Modal = Modal;
 export default Modali;
 
-export const useModali = (options) => {
+export const useModali = (options = {}) => {
   const [hasToggledBefore, setHasToggledBefore] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isShown, setIsShown] = useState(false);
@@ -174,23 +174,23 @@ export const useModali = (options) => {
   }
 
   function handleKeyDown(event) {
-    if (event.keyCode !== 27 || (options && options.keyboardClose === false)) return;
+    if (event.keyCode !== 27 || (options.keyboardClose === false)) return;
     toggle();
-    if (options && options.onEscapeKeyDown) {
+    if (options.onEscapeKeyDown) {
       options.onEscapeKeyDown();
     }
   }
 
   useEffect(() => {
     if (isShown) {
-      if (options && options.onShow) {
+      if (options.onShow) {
         options.onShow();
       }
       document.addEventListener('keydown', handleKeyDown);
       document.body.classList.add('modali-open');
     }
     if (!isShown && hasToggledBefore) {
-      if (options && options.onHide) {
+      if (options.onHide) {
         options.onHide();
       }
       document.body.classList.remove('modali-open');

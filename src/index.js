@@ -128,6 +128,29 @@ const Modal = ({
   ) : null;
 };
 
+Modal.propTypes = {
+  isModalVisible: PropTypes.bool.isRequired,
+  hide: PropTypes.func.isRequired,
+  options: PropTypes.shape({
+    onShow: PropTypes.func,
+    onHide: PropTypes.func,
+    onEscapeKeyDown: PropTypes.func,
+    onOverlayClick: PropTypes.func,
+    title: PropTypes.string,
+    message: PropTypes.string,
+    buttons: PropTypes.arrayOf(PropTypes.exact({
+      key: PropTypes.string,
+      content: PropTypes.any,
+    })),
+    closeButton: PropTypes.bool,
+    animated: PropTypes.bool,
+    centered: PropTypes.bool,
+    large: PropTypes.bool,
+    overlayClose: PropTypes.bool,
+    keyboardClose: PropTypes.bool,
+  }).isRequired,
+};
+
 const Modali = () => {};
 Modali.Button = Button;
 Modali.Modal = Modal;

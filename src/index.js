@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -140,14 +140,14 @@ export const useModali = (options) => {
   isModalVisibleRef.current = isModalVisible;
   let timeoutHack;
 
-  function toggle() {
+  const toggle = useCallback(() => {
     timeoutHack = setTimeout(() => {
       setIsModalVisible(!isModalVisibleRef.current);
       clearTimeout(timeoutHack);
     }, 10);
-    setIsShown(!isShown);
+    setIsShown(isShown => !isShown);
     setHasToggledBefore(true);
-  }
+  }, [])
 
   function handleKeyDown(event) {
     if (event.keyCode !== 27 || (options && options.keyboardClose === false)) return;

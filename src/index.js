@@ -43,7 +43,7 @@ const Modal = ({
   isModalVisible, hide, options, children,
 }) => {
   function handleOverlayClicked(e) {
-    if (e.target.className !== 'modali-wrapper') {
+    if (!e.target.className.startsWith('modali-wrapper')) {
       return;
     }
     if (options === undefined) {

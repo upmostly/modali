@@ -65,7 +65,7 @@ var _shortid = require("shortid");
 
 var _shortid2 = _interopRequireDefault(_shortid);
 
-require("./modali.css");
+require("../src/modali.css");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };

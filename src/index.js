@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import shortid from 'shortid';
-import './modali.css';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import shortid from "shortid";
+import "./modali.css";
 
 const Button = ({
-  onClick, label, isStyleDefault, isStyleCancel, isStyleDestructive,
+  onClick,
+  label,
+  isStyleDefault,
+  isStyleCancel,
+  isStyleDestructive,
 }) => {
   const buttonClass = classNames({
-    'modali-button': true,
-    'modali-button-cancel': isStyleCancel,
-    'modali-button-default': isStyleDefault,
-    'modali-button-destructive': isStyleDestructive,
+    "modali-button": true,
+    "modali-button-cancel": isStyleCancel,
+    "modali-button-default": isStyleDefault,
+    "modali-button-destructive": isStyleDestructive,
   });
   return (
-    <button
-      type="button"
-      className={buttonClass}
-      onClick={onClick}
-    >
+    <button type="button" className={buttonClass} onClick={onClick}>
       {label}
     </button>
   );
@@ -39,11 +39,9 @@ Button.propTypes = {
   isStyleDestructive: PropTypes.bool,
 };
 
-const Modal = ({
-  isModalVisible, hide, options, children,
-}) => {
+const Modal = ({ isModalVisible, hide, options, children }) => {
   function handleOverlayClicked(e) {
-    if (e.target.className !== 'modali-wrapper') {
+    if (e.target.className !== "modali-wrapper") {
       return;
     }
     if (options === undefined) {
@@ -61,12 +59,9 @@ const Modal = ({
   function renderBody() {
     if (children) {
       return children;
-    } if (options && options.message) {
-      return (
-        <div className="modali-body-style">
-          {options.message}
-        </div>
-      );
+    }
+    if (options && options.message) {
+      return <div className="modali-body-style">{options.message}</div>;
     }
     return false;
   }
@@ -75,56 +70,68 @@ const Modal = ({
     const { buttons } = options;
     return (
       <div className="modali-footer">
-        {buttons.map(button => (
-          <React.Fragment
-            key={shortid.generate()}
-          >
-            {button}
-          </React.Fragment>
+        {buttons.map((button) => (
+          <React.Fragment key={shortid.generate()}>{button}</React.Fragment>
         ))}
       </div>
     );
   }
 
   const modaliWrapperClass = classNames({
-    'modali-wrapper': true,
-    'modali-wrapper-centered': options && options.centered,
+    "modali-wrapper": true,
+    "modali-wrapper-centered": options && options.centered,
   });
 
   const modaliClass = classNames({
     modali: true,
-    'modali-size-large': options && options.large,
-    'modali-size-regular': !options || (options && !options.large),
-    'modali-animated modali-animation-fade-in': options && options.animated,
+    "modali-size-large": options && options.large,
+    "modali-size-regular": !options || (options && !options.large),
+    "modali-animated modali-animation-fade-in": options && options.animated,
   });
 
-  return isModalVisible ? ReactDOM.createPortal(
-    <React.Fragment>
-      <div className="modali-overlay" />
-      <div className={modaliWrapperClass} aria-modal aria-hidden tabIndex={-1} role="dialog" onClick={handleOverlayClicked}>
-        <div className={modaliClass}>
-          <div className="modali-content">
-            {options !== undefined && options.closeButton === false ? null : (
-              <div className="modali-header">
-                {options !== undefined && options.title !== undefined && (
-                  <div className="modali-title">
-                    {options.title}
+  return isModalVisible
+    ? ReactDOM.createPortal(
+        <React.Fragment>
+          <div className="modali-overlay" />
+          <div
+            className={modaliWrapperClass}
+            aria-modal
+            aria-hidden
+            tabIndex={-1}
+            role="dialog"
+            onClick={handleOverlayClicked}
+          >
+            <div className={modaliClass}>
+              <div className="modali-content">
+                {options !== undefined &&
+                options.closeButton === false ? null : (
+                  <div className="modali-header">
+                    {options !== undefined && options.title !== undefined && (
+                      <div className="modali-title">{options.title}</div>
+                    )}
+                    <button
+                      type="button"
+                      className="modali-close-button"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      onClick={hide}
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
                 )}
-                <button type="button" className="modali-close-button" data-dismiss="modal" aria-label="Close" onClick={hide}>
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <div className="modali-body">{renderBody()}</div>
+                {options &&
+                  options.buttons &&
+                  options.buttons.length > 0 &&
+                  renderFooter()}
               </div>
-            )}
-            <div className="modali-body">
-              {renderBody()}
             </div>
-            {options && options.buttons && options.buttons.length > 0 && renderFooter()}
           </div>
-        </div>
-      </div>
-    </React.Fragment>, document.body,
-  ) : null;
+        </React.Fragment>,
+        document.body
+      )
+    : null;
 };
 
 const Modali = () => {};
@@ -140,7 +147,12 @@ export const useModali = (options) => {
   isModalVisibleRef.current = isModalVisible;
   let timeoutHack;
 
-  function toggle() {
+  function handleDismiss() {
+    const dismiss = document.querySelector(".modali-animation-fade-in");
+    dismiss.classList.add("modali-animation-fade-out");
+  }
+
+  function showOrHide() {
     timeoutHack = setTimeout(() => {
       setIsModalVisible(!isModalVisibleRef.current);
       clearTimeout(timeoutHack);
@@ -149,8 +161,20 @@ export const useModali = (options) => {
     setHasToggledBefore(true);
   }
 
+  function toggle() {
+    if (!isShown === false && options.animated) {
+      handleDismiss();
+      setTimeout(() => {
+        showOrHide();
+      }, 300);
+    } else {
+      showOrHide();
+    }
+  }
+
   function handleKeyDown(event) {
-    if (event.keyCode !== 27 || (options && options.keyboardClose === false)) return;
+    if (event.keyCode !== 27 || (options && options.keyboardClose === false))
+      return;
     toggle();
     if (options && options.onEscapeKeyDown) {
       options.onEscapeKeyDown();
@@ -162,16 +186,16 @@ export const useModali = (options) => {
       if (options && options.onShow) {
         options.onShow();
       }
-      document.addEventListener('keydown', handleKeyDown);
-      document.body.classList.add('modali-open');
+      document.addEventListener("keydown", handleKeyDown);
+      document.body.classList.add("modali-open");
     }
     if (!isShown && hasToggledBefore) {
       if (options && options.onHide) {
         options.onHide();
       }
-      document.body.classList.remove('modali-open');
+      document.body.classList.remove("modali-open");
     }
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isShown]);
 
   return [

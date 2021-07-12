@@ -6,13 +6,13 @@
   width: 100vw;
   height: 100vh;
   background-color: #000;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .modali-wrapper {
   display: inline-table;
   position: fixed;
-  padding: .5rem;
+  padding: 0.5rem;
   top: 0;
   left: 0;
   z-index: 1050;
@@ -39,7 +39,7 @@
 .modali-header {
   display: flex;
   align-items: flex-start;
-  padding: 1.5rem 1.5rem .5rem 1.5rem;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
 }
 
 .modali-header .modali-title {
@@ -55,14 +55,14 @@
   font-weight: 700;
   line-height: 1;
   color: #000;
-  opacity: .3;
+  opacity: 0.3;
   cursor: pointer;
   border: none;
   outline: 0 !important;
 }
 
 .modali-close-button:hover {
-  opacity: .8;
+  opacity: 0.8;
   text-decoration: none;
 }
 
@@ -72,11 +72,11 @@
   flex-direction: column;
   width: 100%;
   background-color: #fff;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
 }
 
 .modali-body-style {
-  padding: .5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
 }
 
 .modali-footer {
@@ -136,12 +136,12 @@
 /* Button Classes */
 
 .modali-button {
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 700;
   border: none;
   border-radius: 3px;
-  padding: .3rem 1rem;
-  margin-left: .5rem;
+  padding: 0.3rem 1rem;
+  margin-left: 0.5rem;
 }
 
 .modali-button-cancel {
@@ -150,20 +150,20 @@
 }
 
 .modali-button-destructive {
-  background: #FF1654;
+  background: #ff1654;
   color: #fff;
 }
 
 .modali-button-default {
-  background: #247BA0;
+  background: #247ba0;
   color: #fff;
 }
 
 /* Animation Classes */
 
 .modali-animated {
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
@@ -171,6 +171,11 @@
 .modali-animation-fade-in {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+}
+
+.modali-animation-fade-out {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
 }
 
 @-webkit-keyframes fadeIn {
@@ -196,5 +201,31 @@
     opacity: 1;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 30%, 0);
+    transform: translate3d(0, 30%, 0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 30%, 0);
+    transform: translate3d(0, 30%, 0);
   }
 }
